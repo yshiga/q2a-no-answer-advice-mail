@@ -25,10 +25,12 @@ if (!defined('QA_VERSION')) {
 qa_register_plugin_module('module', 'q2a-advicemail-admin.php', 'q2a_advicemail_admin', 'advice mail');
 
 function getXHoursAgoRegisterPosts($hours) {
-	$mysqldate = date('Y-m-d H:i:s', time() - $days * 60 * 60);
+	$mysqldate_to = date('Y-m-d H:i:s', time() - $hours * 60 * 60);
+	$mysqldate_from = date('Y-m-d H:i:s', time() - ($hours + 1) * 60 * 60);
 	$sql = "select postid,userid from";
 	$sql .= " (select * from";
-	$sql .= " (select postid,userid from qa_posts where created < '" . $mysqldate . "' and type='Q') as t1";
+	$sql .= " (select postid,userid from qa_posts";
+	$sql .= " where created <= '" . $mysqldate_to . "' and created > '" . $mysqldate_from . "' and type='Q') as t1";
 	$sql .= " left join (select postid as t2postid,parentid from qa_posts where type='A') as t2";
 	$sql .= " on t1.postid = t2.parentid) t0";
 	$sql .= " where t2postid is NULL and userid is not null order by postid";
