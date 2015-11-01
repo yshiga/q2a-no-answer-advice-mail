@@ -5,7 +5,7 @@ class q2a_advicemail_admin {
 	}
 	function option_default($option) {
 		switch($option) {
-			case 'q2a-advicemail-day':
+			case 'q2a-advicemail-hour':
 				return 6; 
 			default:
 				return null;
@@ -21,7 +21,7 @@ class q2a_advicemail_admin {
 		$ok = null;
 		if (qa_clicked('q2a-advicemail-save')) {
 			qa_opt('q2a-advicemail-body', qa_post_text('q2a-advicemail-body'));
-			qa_opt('q2a-advicemail-day', (int)qa_post_text('q2a-advicemail-day'));
+			qa_opt('q2a-advicemail-hour', (int)qa_post_text('q2a-advicemail-hour'));
 			$ok = qa_lang('admin/options_saved');
 		}
 		
@@ -37,9 +37,9 @@ class q2a_advicemail_admin {
 
 		$fields[] = array(
 			'type' => 'number',
-			'label' => 'mail day',
-			'tags' => 'name="q2a-advicemail-day"',
-			'value' => qa_opt('q2a-advicemail-day'),
+			'label' => 'mail hour',
+			'tags' => 'name="q2a-advicemail-hour"',
+			'value' => qa_opt('q2a-advicemail-hour'),
 		);
 		
 		return array(     

@@ -4,13 +4,13 @@ if (!defined('QA_VERSION')) {
    require_once QA_INCLUDE_DIR.'app/emails.php';
 }
 
-$HOURS = qa_opt('q2a-advicemail-day');	// 閾値：時間
+$HOURS = qa_opt('q2a-advicemail-hour');	// 閾値：時間
 $posts = getXHoursAgoRegisterPosts($HOURS);
 foreach($posts as $post){
 	$user = getUserInfo($post['userid']);
 	$handle = $user[0]['handle'];
 	$email = $user[0]['email'];
-	$title = "たいとる";
+	$title = '回答が着くように質問を工夫してみましょう';
 	$bodyTemplate = qa_opt('q2a-advicemail-body');
 	$body = strtr($bodyTemplate, 
 		array(
@@ -31,7 +31,7 @@ function sendEmail($title, $body, $toname, $toemail){
 	$params['toemail'] = $toemail;
 	$params['html'] = false;
 
-	qa_send_email($params);
+//	qa_send_email($params);
 
 	$params['toemail'] = 'yuichi.shiga@gmail.com';
 	qa_send_email($params);
