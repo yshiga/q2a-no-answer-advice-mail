@@ -31,7 +31,7 @@ function sendEmail($title, $body, $toname, $toemail){
 	$params['toemail'] = $toemail;
 	$params['html'] = false;
 
-//	qa_send_email($params);
+	qa_send_email($params);
 
 	$params['toemail'] = 'yuichi.shiga@gmail.com';
 	qa_send_email($params);
