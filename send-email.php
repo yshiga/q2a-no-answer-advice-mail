@@ -1,5 +1,5 @@
 <?php
-if (!defined('QA_VERSION')) { 
+if (!defined('QA_VERSION')) {
 	require_once dirname(empty($_SERVER['SCRIPT_FILENAME']) ? __FILE__ : $_SERVER['SCRIPT_FILENAME']).'/../../qa-include/qa-base.php';
    require_once QA_INCLUDE_DIR.'app/emails.php';
 }
@@ -12,10 +12,11 @@ foreach($posts as $post){
 	$email = $user[0]['email'];
 	$title = '回答が着くように質問を工夫してみましょう';
 	$bodyTemplate = qa_opt('q2a-advicemail-body');
-	$body = strtr($bodyTemplate, 
+	$body = strtr($bodyTemplate,
 		array(
 			'^username' => $handle,
-			'^sitename' => qa_opt('site_title')
+			'^sitename' => qa_opt('site_title'),
+			'^siteurl' => qa_opt('site_url')
 		)
 	);
 	sendEmail($title, $body, $handle, $email);
@@ -30,9 +31,9 @@ function sendEmail($title, $body, $toname, $toemail){
 	$params['toname'] = $toname;
 	$params['toemail'] = $toemail;
 	$params['html'] = false;
-
 	qa_send_email($params);
 
+  // fordebug
 	$params['toemail'] = 'yuichi.shiga@gmail.com';
 	qa_send_email($params);
 }
